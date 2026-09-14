@@ -20,12 +20,15 @@ if(isset($_POST["login"])){
     //find the user by username
     $sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
     $result = mysqli_query($conn,$sql);
+    if ($result === false) {
+    die("SQL Error: " . mysqli_error($conn));
+}
     if(mysqli_num_rows($result) == 1){
         $user = mysqli_fetch_assoc($result);
         if(password_verify($passsword,$user["password"])){
-            $_SESSION["user_id"] == $user['id'];
-            $_SESSION["full_name"] == $user['full_name'];
-            $_SESSION["role"] == $user['role'];
+            $_SESSION["user_id"] = $user['id'];
+            $_SESSION["full_name"] = $user['full_name'];
+            $_SESSION["role"] = $user['role'];
             if($user['role'] == "admin"){
                 header("Location: admin/dashboard.php");
             }
