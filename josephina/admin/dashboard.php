@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../config/database.php";
-if(isset($_SESSION['role']) || $_SESSION["role"] != "admin"){
+if(!isset($_SESSION['role']) || $_SESSION["role"] != "admin"){
     header("location: ../index.php");
     exit();
 }
@@ -64,11 +64,6 @@ $enrollment = mysqli_query($conn, "SELECT id FROM enrollments");
        <p class="text-muted">
     Welcome, <?php echo isset($_SESSION["full_name"]) ? htmlspecialchars($_SESSION["full_name"]) : "NO NAME IN SESSION"; ?>.
 </p>
-
-<pre>
-<?php print_r($_SESSION); ?>
-</pre>
-
         <div class="row g-3">
 
             <!-- Student Accounts -->
@@ -81,7 +76,7 @@ $enrollment = mysqli_query($conn, "SELECT id FROM enrollments");
                         <h2><?php echo mysqli_num_rows($student)?></h2>
 
                         <a
-                            href="students.html"
+                            href="students/index.php"
                             class="btn btn-primary btn-sm"
                         >
                             Manage Students
@@ -101,7 +96,7 @@ $enrollment = mysqli_query($conn, "SELECT id FROM enrollments");
                         <h2><?php echo mysqli_num_rows($subject)?></h2>
 
                         <a
-                            href="subjects.html"
+                            href="subjects/index.php"
                             class="btn btn-primary btn-sm"
                         >
                             Manage Subjects

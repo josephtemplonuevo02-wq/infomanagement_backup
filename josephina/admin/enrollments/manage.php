@@ -46,7 +46,7 @@
         </p>
 
         <a
-            href="students.html"
+            href="../students/index.php"
             class="btn btn-secondary btn-sm mb-3"
         >
             ← Back
