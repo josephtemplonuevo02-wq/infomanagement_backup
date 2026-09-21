@@ -1,3 +1,28 @@
+<?php 
+session_start();
+include "../../config/database.php";
+if(!isset($_SESSION['role']) || $_SESSION["role"] != "admin"){
+    header("location: ../../index.php");
+    exit();
+} 
+$message = "";
+if(isset($_POST["save"])){
+    $subject_code = $_POST["subject_code"];
+    $subject_name = $_POST["subject_name"];
+    $units = $_POST["units"];
+
+    $sql = "INSERT INTO subjects (subject_code, subject_name, units)
+            VALUES ('$subject_code','$subject_name','$units')";
+    if(mysqli_query($conn, $sql)){
+        header("location: index.php?message=subjects Added Succesfully");
+        exit;
+    }
+    else{
+        $message = "Could not save the student record.";
+    }
+    }
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -32,49 +57,53 @@
             <div class="card-body p-4">
 
                 <h2>Subject Form</h2>
-
-                <form>
+                <?php if($message != ""){?>
+                    <div class = "alert alert-danger"><?php echo $message; ?></div>
+                <?php } ?>
+                <form method = "POST">
 
                     <!-- Subject Code -->
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label class="form-label" >
                             Subject Code
                         </label>
 
-                        <input class="form-control">
+                        <input class="form-control" name = "subject_code">
                     </div>
 
                     <!-- Subject Name -->
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label class="form-label" >
                             Subject Name
                         </label>
 
-                        <input class="form-control">
+                        <input class="form-control" name = "subject_name">
                     </div>
 
                     <!-- Units -->
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label class="form-label" >
                             Units
                         </label>
 
                         <input
                             type="number"
                             class="form-control"
+                            name = "units"
                         >
                     </div>
 
                     <!-- Form Actions -->
                     <button
-                        type="button"
+                        type="submit"
                         class="btn btn-primary"
+                        name = "save"
                     >
                         Save Subject
                     </button>
 
                     <a
-                        href="subjects.html"
+                        href="index.php"
                         class="btn btn-secondary"
                     >
                         Cancel
