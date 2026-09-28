@@ -1,6 +1,6 @@
 
-CREATE DATABASE IF NOT EXISTS Templonuevo_ACT2B;
-USE Templonuevo_ACT2B;
+CREATE DATABASE IF NOT EXISTS templonuevoact2b;
+USE templonuevoact2b;
 
 DROP TABLE IF EXISTS enrollments;
 DROP TABLE IF EXISTS subjects;
